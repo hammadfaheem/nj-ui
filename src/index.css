@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS for chart tooltips */
+.recharts-tooltip-wrapper {
+  z-index: 9999 !important;
+  pointer-events: none;
+}
+
+.recharts-default-tooltip {
+  z-index: 9999 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  pointer-events: none !important;
+}
+
+/* Better tooltip positioning */
+.recharts-tooltip-wrapper {
+  outline: none;
+}
+
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  margin-top: 5px !important;
+}
+
+/* Theme-aware tooltip variables */
+:root {
+  --bg-secondary: #ffffff;
+  --border-color: #e5e7eb;
+  --text-primary: #111827;
+}
+
+.dark {
+  --bg-secondary: #1f2937;
+  --border-color: #374151;
+  --text-primary: #f9fafb;
+}

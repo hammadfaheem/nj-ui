@@ -1,0 +1,3515 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Authentication API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/auth/forgot-password": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Forgot Password",
+        "operationId": "forgot_password_auth_forgot_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Reset Password",
+        "operationId": "reset_password_auth_reset_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Login",
+        "operationId": "login_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Register",
+        "operationId": "register_auth_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/profile": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get User Profile",
+        "operationId": "get_user_profile_user_profile_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/overview/summary": {
+      "get": {
+        "tags": ["Overview"],
+        "summary": "Overview Summary",
+        "description": "Overview summary metrics for dashboard",
+        "operationId": "overview_summary_overview_summary_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Start date in YYYY-MM-DD format",
+              "title": "Start Date"
+            },
+            "description": "Start date in YYYY-MM-DD format"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "End date in YYYY-MM-DD format",
+              "title": "End Date"
+            },
+            "description": "End date in YYYY-MM-DD format"
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Optional phone label filter",
+              "title": "Label"
+            },
+            "description": "Optional phone label filter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/overview/success-over-time": {
+      "get": {
+        "tags": ["Overview"],
+        "summary": "Overview Success Over Time",
+        "operationId": "overview_success_over_time_overview_success_over_time_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Start date in YYYY-MM-DD format",
+              "title": "Start Date"
+            },
+            "description": "Start date in YYYY-MM-DD format"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "End date in YYYY-MM-DD format",
+              "title": "End Date"
+            },
+            "description": "End date in YYYY-MM-DD format"
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Optional phone label filter",
+              "title": "Label"
+            },
+            "description": "Optional phone label filter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics/volume_over_time": {
+      "get": {
+        "tags": ["Metrics"],
+        "summary": "Overview Volume",
+        "description": "Call volume over time (log scale) for dashboard",
+        "operationId": "overview_volume_metrics_volume_over_time_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Start date in YYYY-MM-DD format",
+              "title": "Start Date"
+            },
+            "description": "Start date in YYYY-MM-DD format"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "End date in YYYY-MM-DD format",
+              "title": "End Date"
+            },
+            "description": "End date in YYYY-MM-DD format"
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Optional phone label filter",
+              "title": "Label"
+            },
+            "description": "Optional phone label filter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics/call-direction": {
+      "get": {
+        "tags": ["Metrics"],
+        "summary": "Call Direction",
+        "operationId": "call_direction_metrics_call_direction_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "End Date"
+            }
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Optional phone label filter",
+              "title": "Label"
+            },
+            "description": "Optional phone label filter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics/status-breakdown": {
+      "get": {
+        "tags": ["Metrics"],
+        "summary": "Status Breakdown",
+        "operationId": "status_breakdown_metrics_status_breakdown_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "End Date"
+            }
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Optional phone label filter",
+              "title": "Label"
+            },
+            "description": "Optional phone label filter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics/success-evaluation": {
+      "get": {
+        "tags": ["Metrics"],
+        "summary": "Success Evaluation",
+        "operationId": "success_evaluation_metrics_success_evaluation_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "End Date"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Optional phone label filter",
+              "title": "Label"
+            },
+            "description": "Optional phone label filter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics/success-donut": {
+      "get": {
+        "tags": ["Metrics"],
+        "summary": "Success Donut",
+        "operationId": "success_donut_metrics_success_donut_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "End Date"
+            }
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Optional phone label filter",
+              "title": "Label"
+            },
+            "description": "Optional phone label filter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/assistants/": {
+      "post": {
+        "tags": ["Assistants"],
+        "summary": "Create Assistant",
+        "operationId": "create_assistant_assistants__post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantModel-Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "title": "Response Create Assistant Assistants  Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Assistants"],
+        "summary": "Update Assistant",
+        "operationId": "update_assistant_assistants__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "assistant_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Assistant Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantModel-Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean",
+                  "title": "Response Update Assistant Assistants  Put"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Assistants"],
+        "summary": "List Assistants",
+        "operationId": "list_assistants_assistants__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ListAssistantsResponse"
+                  },
+                  "title": "Response List Assistants Assistants  Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/assistants/{assistant_id}": {
+      "get": {
+        "tags": ["Assistants"],
+        "summary": "Get Assistant",
+        "operationId": "get_assistant_assistants__assistant_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "assistant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Assistant Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantModel-Output"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Assistants"],
+        "summary": "Delete Assistant",
+        "operationId": "delete_assistant_assistants__assistant_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "assistant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Assistant Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean",
+                  "title": "Response Delete Assistant Assistants  Assistant Id  Delete"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/assistants/{assistant_id}/sessions/start": {
+      "post": {
+        "tags": ["Assistants"],
+        "summary": "Start Session",
+        "operationId": "start_session_assistants__assistant_id__sessions_start_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "assistant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Assistant Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StartSessionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/assistants/sessions/{session_id}/end": {
+      "post": {
+        "tags": ["Assistants"],
+        "summary": "End Session",
+        "operationId": "end_session_assistants_sessions__session_id__end_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EndSessionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/call_logs/fetch-call-logs": {
+      "get": {
+        "tags": ["Call Logs"],
+        "summary": "Fetch Call Logs",
+        "operationId": "fetch_call_logs_call_logs_fetch_call_logs_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Start date in YYYY-MM-DD format",
+              "title": "Start Date"
+            },
+            "description": "Start date in YYYY-MM-DD format"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "End date in YYYY-MM-DD format",
+              "title": "End Date"
+            },
+            "description": "End date in YYYY-MM-DD format"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Call status filter",
+              "title": "Status"
+            },
+            "description": "Call status filter"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1000,
+              "minimum": 1,
+              "default": 1000,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Optional phone label filter",
+              "title": "Label"
+            },
+            "description": "Optional phone label filter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cost_analysis/summary": {
+      "get": {
+        "tags": ["Cost Analysis"],
+        "summary": "Overview Summary",
+        "description": "Overview summary metrics for dashboard",
+        "operationId": "overview_summary_cost_analysis_summary_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Start date in YYYY-MM-DD format",
+              "title": "Start Date"
+            },
+            "description": "Start date in YYYY-MM-DD format"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "End date in YYYY-MM-DD format",
+              "title": "End Date"
+            },
+            "description": "End date in YYYY-MM-DD format"
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Optional phone label filter",
+              "title": "Label"
+            },
+            "description": "Optional phone label filter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cost_analysis/cost-trends": {
+      "get": {
+        "tags": ["Cost Analysis"],
+        "summary": "Cost Trends",
+        "operationId": "cost_trends_cost_analysis_cost_trends_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "End Date"
+            }
+          },
+          {
+            "name": "granularity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "month",
+              "title": "Granularity"
+            }
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Optional phone label filter",
+              "title": "Label"
+            },
+            "description": "Optional phone label filter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cost_analysis/cost-by-direction": {
+      "get": {
+        "tags": ["Cost Analysis"],
+        "summary": "Cost By Direction",
+        "operationId": "cost_by_direction_cost_analysis_cost_by_direction_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "End Date"
+            }
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Optional phone label filter",
+              "title": "Label"
+            },
+            "description": "Optional phone label filter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cost_analysis/cost-by-status": {
+      "get": {
+        "tags": ["Cost Analysis"],
+        "summary": "Cost By Status",
+        "operationId": "cost_by_status_cost_analysis_cost_by_status_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Start Date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "End Date"
+            }
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Optional phone label filter",
+              "title": "Label"
+            },
+            "description": "Optional phone label filter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/phone/create": {
+      "post": {
+        "tags": ["Phone"],
+        "summary": "Create Phone Number",
+        "operationId": "create_phone_number_phone_create_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhoneNumberCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PhoneNumberInDB"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/phone/list": {
+      "get": {
+        "tags": ["Phone"],
+        "summary": "List Phone Numbers",
+        "operationId": "list_phone_numbers_phone_list_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PhoneNumberInDB"
+                  },
+                  "type": "array",
+                  "title": "Response List Phone Numbers Phone List Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/phone/get/{phone_id}": {
+      "get": {
+        "tags": ["Phone"],
+        "summary": "Get Phone Number",
+        "operationId": "get_phone_number_phone_get__phone_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "phone_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Phone Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PhoneNumberInDB"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/phone/update/{phone_id}": {
+      "put": {
+        "tags": ["Phone"],
+        "summary": "Update Phone Number",
+        "operationId": "update_phone_number_phone_update__phone_id__put",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "phone_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Phone Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhoneNumberCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PhoneNumberInDB"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/phone/delete/{phone_id}": {
+      "delete": {
+        "tags": ["Phone"],
+        "summary": "Delete Phone Number",
+        "operationId": "delete_phone_number_phone_delete__phone_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "phone_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Phone Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/files/upload": {
+      "post": {
+        "tags": ["Files"],
+        "summary": "Upload File",
+        "operationId": "upload_file_files_upload_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FileUploadRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/files/": {
+      "get": {
+        "tags": ["Files"],
+        "summary": "List Files",
+        "operationId": "list_files_files__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListFilesResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/files/{file_id}": {
+      "delete": {
+        "tags": ["Files"],
+        "summary": "Delete File",
+        "operationId": "delete_file_files__file_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "file_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "File Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lov/cartesia/voices": {
+      "get": {
+        "tags": ["LOV"],
+        "summary": "Get Cartesia Voices",
+        "description": "Get available Cartesia voices",
+        "operationId": "get_cartesia_voices_lov_cartesia_voices_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lov/openai/voices": {
+      "get": {
+        "tags": ["LOV"],
+        "summary": "Get Openai Voices",
+        "description": "Get available OpenAI TTS voices",
+        "operationId": "get_openai_voices_lov_openai_voices_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lov/llm/models": {
+      "get": {
+        "tags": ["LOV"],
+        "summary": "Get Llm Models",
+        "description": "Get available LLM models for a provider",
+        "operationId": "get_llm_models_lov_llm_models_get",
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "openai",
+              "title": "Provider"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lov/stt/models": {
+      "get": {
+        "tags": ["LOV"],
+        "summary": "Get Stt Models",
+        "description": "Get available STT models for a provider",
+        "operationId": "get_stt_models_lov_stt_models_get",
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "deepgram",
+              "title": "Provider"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lov/tts/models": {
+      "get": {
+        "tags": ["LOV"],
+        "summary": "Get Tts Models",
+        "description": "Get available TTS models for a provider",
+        "operationId": "get_tts_models_lov_tts_models_get",
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "cartesia",
+              "title": "Provider"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/health": {
+      "get": {
+        "tags": ["Image Generation"],
+        "summary": "Health Check",
+        "description": "Health check endpoint",
+        "operationId": "health_check_images_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthCheckResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/models": {
+      "get": {
+        "tags": ["Image Generation"],
+        "summary": "Get Available Models",
+        "description": "Get available image generation models",
+        "operationId": "get_available_models_images_models_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvailableModelsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/pricing": {
+      "get": {
+        "tags": ["Image Generation"],
+        "summary": "Get Pricing Info",
+        "description": "Get current pricing information for all models and configurations",
+        "operationId": "get_pricing_info_images_pricing_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricingResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/pricing/calculate": {
+      "get": {
+        "tags": ["Image Generation"],
+        "summary": "Calculate Price Estimate",
+        "description": "Calculate price estimate for given parameters",
+        "operationId": "calculate_price_estimate_images_pricing_calculate_get",
+        "parameters": [
+          {
+            "name": "model",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "dall-e-3",
+              "title": "Model"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "1024x1024",
+              "title": "Size"
+            }
+          },
+          {
+            "name": "quality",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "standard",
+              "title": "Quality"
+            }
+          },
+          {
+            "name": "n",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "title": "N"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricingCalculationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/generate": {
+      "post": {
+        "tags": ["Image Generation"],
+        "summary": "Generate Image",
+        "description": "Generate image using AI models",
+        "operationId": "generate_image_images_generate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImageGenerationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageGenerationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/images/generate-form": {
+      "post": {
+        "tags": ["Image Generation"],
+        "summary": "Generate Image Form",
+        "description": "Generate image using form data",
+        "operationId": "generate_image_form_images_generate_form_post",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_generate_image_form_images_generate_form_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageGenerationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/images/download": {
+      "get": {
+        "tags": ["Image Generation"],
+        "summary": "Download Image",
+        "description": "Download image from OpenAI URL",
+        "operationId": "download_image_images_download_get",
+        "parameters": [
+          {
+            "name": "image_url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Image Url"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/history": {
+      "get": {
+        "tags": ["Image Generation"],
+        "summary": "Get Generation History",
+        "description": "Get generation history for all users",
+        "operationId": "get_generation_history_images_history_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/HistoryEntry"
+                  },
+                  "type": "array",
+                  "title": "Response Get Generation History Images History Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/user-spending/{user_id}": {
+      "get": {
+        "tags": ["Image Generation"],
+        "summary": "Get User Spending",
+        "description": "Get spending information for a specific user",
+        "operationId": "get_user_spending_images_user_spending__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSpendingResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/user-spending": {
+      "get": {
+        "tags": ["Image Generation"],
+        "summary": "Get All User Spending",
+        "description": "Get spending summary for all users",
+        "operationId": "get_all_user_spending_images_user_spending_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllUserSpendingResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health Check",
+        "operationId": "health_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Advanced": {
+        "properties": {
+          "silence_timeout": {
+            "$ref": "#/components/schemas/SilenceTimeout"
+          },
+          "function": {
+            "$ref": "#/components/schemas/Function"
+          }
+        },
+        "type": "object",
+        "required": ["silence_timeout", "function"],
+        "title": "Advanced"
+      },
+      "AllUserSpendingResponse": {
+        "properties": {
+          "total_users": {
+            "type": "integer",
+            "title": "Total Users",
+            "description": "Total number of users"
+          },
+          "users": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Users",
+            "description": "User spending data"
+          }
+        },
+        "type": "object",
+        "required": ["total_users", "users"],
+        "title": "AllUserSpendingResponse"
+      },
+      "AssistantModel-Input": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "llm": {
+            "$ref": "#/components/schemas/LLM"
+          },
+          "voice": {
+            "$ref": "#/components/schemas/Voice"
+          },
+          "transcriber": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Transcriber"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "advanced": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Advanced"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": ["name", "llm", "voice"],
+        "title": "AssistantModel"
+      },
+      "AssistantModel-Output": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "llm": {
+            "$ref": "#/components/schemas/LLM"
+          },
+          "voice": {
+            "$ref": "#/components/schemas/Voice"
+          },
+          "transcriber": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Transcriber"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "advanced": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Advanced"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": ["name", "llm", "voice"],
+        "title": "AssistantModel"
+      },
+      "AvailableModelsResponse": {
+        "properties": {
+          "available_models": {
+            "items": {
+              "$ref": "#/components/schemas/ModelInfo"
+            },
+            "type": "array",
+            "title": "Available Models",
+            "description": "List of available models"
+          }
+        },
+        "type": "object",
+        "required": ["available_models"],
+        "title": "AvailableModelsResponse"
+      },
+      "Body_generate_image_form_images_generate_form_post": {
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "title": "Prompt"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model",
+            "default": "dall-e-3"
+          },
+          "size": {
+            "type": "string",
+            "title": "Size",
+            "default": "1024x1024"
+          },
+          "quality": {
+            "type": "string",
+            "title": "Quality",
+            "default": "standard"
+          },
+          "style": {
+            "type": "string",
+            "title": "Style",
+            "default": "vivid"
+          },
+          "user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Id"
+          }
+        },
+        "type": "object",
+        "required": ["prompt"],
+        "title": "Body_generate_image_form_images_generate_form_post"
+      },
+      "Credentials": {
+        "properties": {
+          "account_sid": {
+            "type": "string",
+            "title": "Account Sid"
+          },
+          "auth_token": {
+            "type": "string",
+            "title": "Auth Token"
+          }
+        },
+        "type": "object",
+        "required": ["account_sid", "auth_token"],
+        "title": "Credentials"
+      },
+      "DeleteResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success"
+          },
+          "file_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File Id"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          }
+        },
+        "type": "object",
+        "required": ["success"],
+        "title": "DeleteResponse"
+      },
+      "EndSessionResponse": {
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "title": "Ok"
+          }
+        },
+        "type": "object",
+        "required": ["ok"],
+        "title": "EndSessionResponse"
+      },
+      "FileMetadata": {
+        "properties": {
+          "file_id": {
+            "type": "string",
+            "title": "File Id"
+          },
+          "filename": {
+            "type": "string",
+            "title": "Filename"
+          }
+        },
+        "type": "object",
+        "required": ["file_id", "filename"],
+        "title": "FileMetadata"
+      },
+      "FileUploadRequest": {
+        "properties": {
+          "filename": {
+            "type": "string",
+            "title": "Filename",
+            "description": "Name of the file being uploaded"
+          },
+          "base64": {
+            "type": "string",
+            "title": "Base64",
+            "description": "Base64 encoded content of the file"
+          }
+        },
+        "type": "object",
+        "required": ["filename", "base64"],
+        "title": "FileUploadRequest"
+      },
+      "ForgotPasswordRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          }
+        },
+        "type": "object",
+        "required": ["email"],
+        "title": "ForgotPasswordRequest"
+      },
+      "Function": {
+        "properties": {
+          "endCall": {
+            "type": "boolean",
+            "title": "Endcall",
+            "default": false
+          },
+          "currentDatetime": {
+            "type": "boolean",
+            "title": "Currentdatetime",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "Function"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthCheckResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "Service health status"
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp",
+            "description": "Health check timestamp"
+          }
+        },
+        "type": "object",
+        "required": ["status", "timestamp"],
+        "title": "HealthCheckResponse"
+      },
+      "HistoryEntry": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "title": "Request Id",
+            "description": "Unique request identifier"
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt",
+            "description": "Original prompt used"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model",
+            "description": "Model used"
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp",
+            "description": "Generation timestamp"
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url",
+            "description": "Generated image URL"
+          },
+          "pricing": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PricingInfo"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Pricing information"
+          },
+          "user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Id",
+            "description": "User ID"
+          }
+        },
+        "type": "object",
+        "required": ["request_id", "prompt", "model", "timestamp"],
+        "title": "HistoryEntry"
+      },
+      "ImageGenerationRequest": {
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Prompt",
+            "description": "Text prompt for image generation"
+          },
+          "model": {
+            "type": "string",
+            "enum": ["dall-e-2", "dall-e-3"],
+            "title": "Model",
+            "description": "Model to use for generation",
+            "default": "dall-e-3"
+          },
+          "size": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "256x256",
+                  "512x512",
+                  "1024x1024",
+                  "1792x1024",
+                  "1024x1792"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Size",
+            "description": "Image size",
+            "default": "1024x1024"
+          },
+          "quality": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": ["standard", "hd"]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quality",
+            "description": "Image quality (DALL-E 3 only)",
+            "default": "standard"
+          },
+          "style": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": ["vivid", "natural"]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Style",
+            "description": "Image style (DALL-E 3 only)",
+            "default": "vivid"
+          },
+          "n": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 10,
+                "minimum": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "N",
+            "description": "Number of images to generate",
+            "default": 1
+          },
+          "user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Id",
+            "description": "User ID for tracking"
+          }
+        },
+        "type": "object",
+        "required": ["prompt"],
+        "title": "ImageGenerationRequest"
+      },
+      "ImageGenerationResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "description": "Whether the generation was successful"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "description": "Response message"
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url",
+            "description": "Generated image URL"
+          },
+          "revised_prompt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revised Prompt",
+            "description": "AI-revised prompt (DALL-E 3 only)"
+          },
+          "model_used": {
+            "type": "string",
+            "title": "Model Used",
+            "description": "Model used for generation"
+          },
+          "generation_time": {
+            "type": "string",
+            "title": "Generation Time",
+            "description": "Time taken to generate"
+          },
+          "request_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Request Id",
+            "description": "Unique request identifier"
+          },
+          "pricing": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PricingInfo"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Pricing information"
+          }
+        },
+        "type": "object",
+        "required": ["success", "message", "model_used", "generation_time"],
+        "title": "ImageGenerationResponse"
+      },
+      "LLM": {
+        "properties": {
+          "first_message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Message"
+          },
+          "system_prompt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "System Prompt"
+          },
+          "file_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File Ids"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/Provider"
+          },
+          "model": {
+            "$ref": "#/components/schemas/LLMModel"
+          },
+          "temperature": {
+            "type": "number",
+            "title": "Temperature",
+            "default": 0.5
+          },
+          "max_token": {
+            "type": "integer",
+            "title": "Max Token",
+            "default": 250
+          },
+          "closing": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Closing"
+          }
+        },
+        "type": "object",
+        "required": ["file_ids", "provider", "model"],
+        "title": "LLM"
+      },
+      "LLMModel": {
+        "type": "string",
+        "enum": ["gpt-4", "gpt-3.5-turbo", "claude-3-sonnet", "claude-3-haiku"],
+        "title": "LLMModel"
+      },
+      "ListAssistantsResponse": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "assistant_id": {
+            "type": "string",
+            "title": "Assistant Id"
+          }
+        },
+        "type": "object",
+        "required": ["name", "assistant_id"],
+        "title": "ListAssistantsResponse"
+      },
+      "ListFilesResponse": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "files": {
+            "items": {
+              "$ref": "#/components/schemas/FileMetadata"
+            },
+            "type": "array",
+            "title": "Files"
+          }
+        },
+        "type": "object",
+        "required": ["user_id", "files"],
+        "title": "ListFilesResponse"
+      },
+      "LoginRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          },
+          "keep_logged_in": {
+            "type": "boolean",
+            "title": "Keep Logged In",
+            "default": false
+          },
+          "recaptcha_token": {
+            "type": "string",
+            "title": "Recaptcha Token"
+          }
+        },
+        "type": "object",
+        "required": ["email", "password", "recaptcha_token"],
+        "title": "LoginRequest"
+      },
+      "MessageResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": ["message"],
+        "title": "MessageResponse"
+      },
+      "ModelInfo": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Model name"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "description": "Model description"
+          },
+          "max_size": {
+            "type": "string",
+            "title": "Max Size",
+            "description": "Maximum supported size"
+          },
+          "supported_sizes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Supported Sizes",
+            "description": "List of supported sizes"
+          }
+        },
+        "type": "object",
+        "required": ["name", "description", "max_size", "supported_sizes"],
+        "title": "ModelInfo"
+      },
+      "PhoneNumberCreate": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "title": "Provider",
+            "example": "twilio"
+          },
+          "phone_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone Number"
+          },
+          "label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Label"
+          },
+          "credentials": {
+            "$ref": "#/components/schemas/Credentials"
+          }
+        },
+        "type": "object",
+        "required": ["provider", "credentials"],
+        "title": "PhoneNumberCreate"
+      },
+      "PhoneNumberInDB": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "title": "Provider",
+            "example": "twilio"
+          },
+          "phone_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone Number"
+          },
+          "label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Label"
+          },
+          "credentials": {
+            "$ref": "#/components/schemas/Credentials"
+          },
+          "_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provider",
+          "credentials",
+          "user_id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "PhoneNumberInDB"
+      },
+      "PricingCalculationResponse": {
+        "properties": {
+          "model": {
+            "type": "string",
+            "title": "Model",
+            "description": "Model used"
+          },
+          "size": {
+            "type": "string",
+            "title": "Size",
+            "description": "Image size"
+          },
+          "quality": {
+            "type": "string",
+            "title": "Quality",
+            "description": "Image quality"
+          },
+          "quantity": {
+            "type": "integer",
+            "title": "Quantity",
+            "description": "Number of images"
+          },
+          "price_per_image": {
+            "type": "number",
+            "title": "Price Per Image",
+            "description": "Price per image"
+          },
+          "total_price": {
+            "type": "number",
+            "title": "Total Price",
+            "description": "Total OpenAI cost"
+          },
+          "client_price": {
+            "type": "number",
+            "title": "Client Price",
+            "description": "Total client price with markup"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model",
+          "size",
+          "quality",
+          "quantity",
+          "price_per_image",
+          "total_price",
+          "client_price"
+        ],
+        "title": "PricingCalculationResponse"
+      },
+      "PricingInfo": {
+        "properties": {
+          "price_per_image": {
+            "type": "number",
+            "title": "Price Per Image",
+            "description": "Price per single image in USD"
+          },
+          "total_price": {
+            "type": "number",
+            "title": "Total Price",
+            "description": "Total OpenAI cost in USD"
+          },
+          "client_price": {
+            "type": "number",
+            "title": "Client Price",
+            "description": "Total client price with markup in USD"
+          },
+          "quantity": {
+            "type": "integer",
+            "title": "Quantity",
+            "description": "Number of images"
+          }
+        },
+        "type": "object",
+        "required": [
+          "price_per_image",
+          "total_price",
+          "client_price",
+          "quantity"
+        ],
+        "title": "PricingInfo"
+      },
+      "PricingResponse": {
+        "properties": {
+          "pricing_table": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Pricing Table",
+            "description": "Complete pricing table"
+          },
+          "client_price_multiplier": {
+            "type": "number",
+            "title": "Client Price Multiplier",
+            "description": "Client price multiplier"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "description": "Pricing description"
+          }
+        },
+        "type": "object",
+        "required": ["pricing_table", "client_price_multiplier", "description"],
+        "title": "PricingResponse"
+      },
+      "Provider": {
+        "type": "string",
+        "enum": ["openai", "anthropic", "google", "azure"],
+        "title": "Provider"
+      },
+      "RegisterRequest": {
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "title": "First Name"
+          },
+          "last_name": {
+            "type": "string",
+            "title": "Last Name"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          },
+          "terms_agreed": {
+            "type": "boolean",
+            "title": "Terms Agreed"
+          },
+          "recaptcha_token": {
+            "type": "string",
+            "title": "Recaptcha Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "first_name",
+          "last_name",
+          "email",
+          "password",
+          "terms_agreed",
+          "recaptcha_token"
+        ],
+        "title": "RegisterRequest"
+      },
+      "ResetPasswordRequest": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "title": "Token"
+          },
+          "new_password": {
+            "type": "string",
+            "title": "New Password"
+          },
+          "reenter_password": {
+            "type": "string",
+            "title": "Reenter Password"
+          }
+        },
+        "type": "object",
+        "required": ["token", "new_password", "reenter_password"],
+        "title": "ResetPasswordRequest"
+      },
+      "SilenceTimeout": {
+        "properties": {
+          "followup_time_on": {
+            "type": "integer",
+            "title": "Followup Time On",
+            "default": 25
+          },
+          "call_end_time_on_silence": {
+            "type": "integer",
+            "title": "Call End Time On Silence",
+            "default": 45
+          }
+        },
+        "type": "object",
+        "title": "SilenceTimeout"
+      },
+      "StartSessionResponse": {
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "title": "Session Id"
+          },
+          "room": {
+            "type": "string",
+            "title": "Room"
+          },
+          "wss": {
+            "type": "string",
+            "title": "Wss"
+          },
+          "token": {
+            "type": "string",
+            "title": "Token"
+          }
+        },
+        "type": "object",
+        "required": ["session_id", "room", "wss", "token"],
+        "title": "StartSessionResponse"
+      },
+      "TokenResponse": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "title": "Token"
+          }
+        },
+        "type": "object",
+        "required": ["token"],
+        "title": "TokenResponse"
+      },
+      "Transcriber": {
+        "properties": {
+          "provider": {
+            "$ref": "#/components/schemas/TranscriberProvider"
+          },
+          "language": {
+            "type": "string",
+            "title": "Language",
+            "default": "en"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "noise_cancellation": {
+            "type": "boolean",
+            "title": "Noise Cancellation",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": ["provider", "model"],
+        "title": "Transcriber"
+      },
+      "TranscriberProvider": {
+        "type": "string",
+        "enum": ["whisper", "google", "azure", "deepgram"],
+        "title": "TranscriberProvider"
+      },
+      "UploadResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success"
+          },
+          "file_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File Id"
+          },
+          "filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Filename"
+          },
+          "file_size": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File Size"
+          },
+          "file_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File Hash"
+          },
+          "upload_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Upload Date"
+          },
+          "duplicate_checked": {
+            "type": "boolean",
+            "title": "Duplicate Checked",
+            "default": false
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Code"
+          },
+          "existing_file": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Existing File"
+          },
+          "duplicate_details": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duplicate Details"
+          }
+        },
+        "type": "object",
+        "required": ["success"],
+        "title": "UploadResponse"
+      },
+      "UserResponse": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "first_name": {
+            "type": "string",
+            "title": "First Name"
+          },
+          "last_name": {
+            "type": "string",
+            "title": "Last Name"
+          }
+        },
+        "type": "object",
+        "required": ["email", "first_name", "last_name"],
+        "title": "UserResponse"
+      },
+      "UserSpendingResponse": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id",
+            "description": "User identifier"
+          },
+          "total_cost": {
+            "type": "number",
+            "title": "Total Cost",
+            "description": "Total OpenAI costs"
+          },
+          "total_client_cost": {
+            "type": "number",
+            "title": "Total Client Cost",
+            "description": "Total client costs with markup"
+          },
+          "generation_count": {
+            "type": "integer",
+            "title": "Generation Count",
+            "description": "Number of images generated"
+          },
+          "first_generation": {
+            "type": "string",
+            "title": "First Generation",
+            "description": "Timestamp of first generation"
+          },
+          "last_generation": {
+            "type": "string",
+            "title": "Last Generation",
+            "description": "Timestamp of last generation"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "total_cost",
+          "total_client_cost",
+          "generation_count",
+          "first_generation",
+          "last_generation"
+        ],
+        "title": "UserSpendingResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      },
+      "Voice": {
+        "properties": {
+          "provider": {
+            "$ref": "#/components/schemas/VoiceProvider"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "voice_id": {
+            "type": "string",
+            "title": "Voice Id"
+          },
+          "speed": {
+            "type": "number",
+            "title": "Speed",
+            "default": 1
+          }
+        },
+        "type": "object",
+        "required": ["provider", "model", "voice_id"],
+        "title": "Voice"
+      },
+      "VoiceProvider": {
+        "type": "string",
+        "enum": ["eleven_labs", "openai", "cartesia"],
+        "title": "VoiceProvider"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
