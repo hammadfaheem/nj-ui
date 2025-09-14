@@ -330,15 +330,17 @@
 // };
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Sun, Moon, LogOut, Calendar } from "lucide-react";
+import { Sun, Moon, LogOut, Calendar, Menu } from "lucide-react";
 import { useDashboardStore } from "../../store/dashboardStore";
 import { useAuthStore } from "../../store/authStore";
 import { apiService } from "../../services/api";
+import { useSidebar } from "../../contexts/SidebarContext";
 
 export const Navbar: React.FC = () => {
   // ✅ same functionality as your original
   const { dateRange, setDateRange, theme, toggleTheme } = useDashboardStore();
   const { logout } = useAuthStore();
+  const { toggleMobile } = useSidebar();
 
   // User profile state
   const [userProfile, setUserProfile] = useState<{
@@ -381,9 +383,17 @@ export const Navbar: React.FC = () => {
   return (
     <header className="sticky top-0 z-40 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
       {/* Align with sidebar width (falls back to 18rem if CSS var not set) */}
-      <div className="px-4 sm:px-6 lg:px-8 lg:pl-[var(--sidebar-width,18rem)]">
-        <div className="flex h-16 items-center justify-between">
-          {/* Left: Empty space to maintain layout */}
+      <div className="px-4 sm:px-6 lg:px-8 lg:pl-[var(--sidebar-width,18rem)]">        <div className="flex h-16 items-center justify-between">
+          {/* Left: Mobile menu button */}
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={toggleMobile}
+              className="lg:hidden p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-lg transition-colors"
+              aria-label="Open mobile menu"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
           <div className="flex items-center space-x-4">
             {/* Logo and Dashboard text removed as requested */}
           </div>

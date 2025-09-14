@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   BarChart3,
   DollarSign,
@@ -15,7 +15,9 @@ import {
   Bot,
   Image,
   PieChart,
+  X,
 } from "lucide-react";
+import { useSidebar } from "../../contexts/SidebarContext";
 
 // ✅ Same routes & icons (functionality preserved)
 // const navigation = [
@@ -62,6 +64,7 @@ const navigation = [
 
 export const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const { isMobileOpen, setIsMobileOpen } = useSidebar();
 
   // --- THEME-AWARE LOGO (updates live when `dark` class toggles) ---
   const [isDark, setIsDark] = useState<boolean>(() =>
@@ -115,20 +118,139 @@ export const Sidebar: React.FC = () => {
       document.documentElement.style.removeProperty("--sidebar-width");
     };
   }, [isCollapsed]);
-
   return (
-    <motion.aside
-      initial={{ x: -40, opacity: 0 }}
-      animate={{
-        x: 0,
-        opacity: 1,
-        width: isCollapsed ? collapsedPx : expandedPx,
-      }}
-      transition={{ duration: 0.25 }}
-      // NOTE: removed fixed lg:w-72 so width can actually change
-      className="hidden lg:flex lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 flex-col h-full border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
-      style={{ width: isCollapsed ? collapsedPx : expandedPx }}
-    >
+    <>
+      {/* Mobile backdrop */}
+      <AnimatePresence>
+        {isMobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsMobileOpen(false)}
+            className="fixed inset-0 z-40 bg-gray-600 bg-opacity-75 lg:hidden"
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Sidebar */}
+      <AnimatePresence>
+        {isMobileOpen && (
+          <motion.aside
+            initial={{ x: -280, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -280, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="fixed inset-y-0 left-0 z-50 w-72 flex flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 lg:hidden"
+          >
+            {/* Mobile header */}
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+              <div className="flex items-center space-x-3">
+                <motion.img
+                  key={`${logoSrc}-mobile`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                  src={logoSrc}
+                  onError={onLogoError}
+                  alt="Logo"
+                  className="w-8 h-8 rounded-lg object-cover"
+                />
+                <div>
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                    njx calling
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    Call Intelligence
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsMobileOpen(false)}
+                className="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-lg"
+                aria-label="Close mobile menu"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Mobile Navigation */}
+            <nav className="flex-1 overflow-y-auto px-3 py-3" role="navigation" aria-label="Main navigation">
+              {/* Top Navigation - Overview */}
+              <ul role="list" className="space-y-1 mb-6">
+                {topNavigation.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <li key={item.name}>
+                      <NavLink
+                        to={item.href}
+                        onClick={() => setIsMobileOpen(false)}
+                        className={({ isActive }) =>
+                          `group relative flex items-center gap-x-2 rounded-md px-2 py-1.5 text-sm font-medium transition-all duration-200 ${
+                            isActive
+                              ? "bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 shadow"
+                              : "text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-200"
+                          }`
+                        }
+                      >
+                        <Icon className="h-5 w-5 shrink-0" aria-hidden="true" />
+                        <span className="truncate">{item.name}</span>
+                      </NavLink>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              {/* Sectioned Navigation */}
+              {navigation.map((section) => (
+                <div key={section.label} className="mb-6">
+                  <p className="px-2 mb-1.5 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+                    {section.label}
+                  </p>
+                  <ul role="list" className="space-y-1">
+                    {section.items.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <li key={item.name}>
+                          <NavLink
+                            to={item.href}
+                            onClick={() => setIsMobileOpen(false)}
+                            className={({ isActive }) =>
+                              `group relative flex items-center gap-x-2 rounded-md px-2 py-1.5 text-sm font-medium transition-all duration-200 ${
+                                isActive
+                                  ? "bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 shadow"
+                                  : "text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-200"
+                              }`
+                            }
+                          >
+                            <Icon className="h-5 w-5 shrink-0" aria-hidden="true" />
+                            <span className="truncate">{item.name}</span>
+                          </NavLink>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </nav>
+          </motion.aside>
+        )}
+      </AnimatePresence>
+
+      {/* Desktop Sidebar */}
+      <motion.aside
+        initial={{ x: -40, opacity: 0 }}
+        animate={{
+          x: 0,
+          opacity: 1,
+          width: isCollapsed ? collapsedPx : expandedPx,
+        }}
+        transition={{ duration: 0.25 }}
+        className="hidden lg:flex lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 flex-col h-full border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
+        style={{ width: isCollapsed ? collapsedPx : expandedPx }}
+        role="navigation"
+        aria-label="Main navigation"
+      >
       {/* Collapse / Expand toggle */}
       <motion.button
         whileHover={{ scale: 1.06 }}
@@ -272,11 +394,11 @@ export const Sidebar: React.FC = () => {
                 );
               })}
             </ul>
-          </div>
-        ))}
+          </div>        ))}
       </nav>
 
       {/* Navigation */}
     </motion.aside>
-  );
+  </>
+);
 };
